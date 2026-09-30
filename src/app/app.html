@@ -1,0 +1,33 @@
+<ws-tooltip-layer />
+
+<div class="shell" [class.is-collapsed]="state.sidebarCollapsed()">
+  <app-sidebar />
+
+  <div class="shell__main">
+    <app-topbar />
+
+    <div class="demo-banner ws-no-print">
+      <ws-disclaimer />
+    </div>
+
+    <main class="app-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+<div class="toast-stack">
+  @for (toast of state.toasts(); track toast.id) {
+    <div [class]="'toast toast--' + toast.tone">
+      <span class="toast__text">{{ toast.text }}</span>
+      <button
+        type="button"
+        class="toast__close"
+        aria-label="关闭提示"
+        (click)="state.dismissToast(toast.id)"
+      >
+        <ws-icon name="close" [size]="14" />
+      </button>
+    </div>
+  }
+</div>
